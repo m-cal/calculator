@@ -52,7 +52,7 @@ button {
   margin: 25px;
 }
 
-#currently-displayed-number {
+#currently-displayed-text {
   min-width: 0;
   display: flex;
   flex: 1;
@@ -63,3 +63,12 @@ button {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.operator-button > button {
+  font-size: 50px;
+}
+
+.number-button > button {
+  font-size: 50px;
+}
+
