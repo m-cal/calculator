@@ -47,8 +47,25 @@ function getCurrentNumber() {
 
 let numberButtons = document.querySelectorAll('.number-button');
 let operatorButtons = document.querySelectorAll('.operator-button');
+let clearButton = document.querySelector('#clear-button');
+let backButton = document.querySelector('#back-button');
 
 function loadEventListeners() {
+  clearButtonEventListener = () => {
+    clearButton.addEventListener('click', (event) => {
+      currentlyDisplayedText.textContent = '';
+      leftNum = null;
+      rightNum = null;
+      currentOperator = null;
+    });
+  }
+
+  backButtonEventListener = () => {
+    backButton.addEventListener('click', (event) => {
+      currentlyDisplayedText.textContent = currentlyDisplayedText.textContent.slice(0, -1);
+    });
+  }
+
   numberButtonEventListeners = () => {
     numberButtons.forEach(button => {
       button.addEventListener('click', (event) => {
@@ -76,6 +93,8 @@ function loadEventListeners() {
     })
   }
 
+  clearButtonEventListener();
+  backButtonEventListener();
   numberButtonEventListeners();
   operatorButtonEventListeners();
 }
