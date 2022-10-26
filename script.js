@@ -27,6 +27,9 @@ function operate(operator, a, b) {
       return multiply(a, b);
       break;
     case '/':
+      if (b == 0) {
+        alert('You know better than that! No dividing by zero.');
+      }
       return divide(a, b);
       break;
     default:
