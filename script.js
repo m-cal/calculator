@@ -36,10 +36,9 @@ function operate(operator, a, b) {
 
 let currentlyDisplayedText = document.querySelector('#currently-displayed-text');
 let currentNumber = Number(currentlyDisplayedText.textContent);
-
 let currentOperator = null;
-
 let leftNum = null;
+let rightNum = null;
 
 function getCurrentNumber() {
   currentNumber = Number(currentlyDisplayedText.textContent);
@@ -66,8 +65,12 @@ function loadEventListeners() {
           currentOperator = button.textContent.trim();
           currentlyDisplayedText.textContent = '';
         } else if (currentOperator) {
-          if ()
-
+          rightNum = getCurrentNumber();
+          currentNumber = operate(currentOperator, leftNum, rightNum);
+          currentlyDisplayedText.textContent = currentNumber;
+          leftNum = null;
+          rightNum = null;
+          currentOperator = null;
         }
       });
     })
