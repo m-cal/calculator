@@ -33,3 +33,20 @@ function operate(operator, a, b) {
       console.log('Please double check passed arguments match expected input.');
   }
 }
+
+let currentlyDisplayedNumber = document.querySelector('#currently-displayed-number');
+
+let numberButtons = document.querySelectorAll('.number-button');
+
+function loadEventListeners() {
+  numberButtonEventListeners = () => {
+    numberButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        currentlyDisplayedNumber.textContent += button.textContent.trim();
+      });
+    });
+  }
+  return numberButtonEventListeners();
+}
+
+loadEventListeners();
