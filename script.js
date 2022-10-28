@@ -42,6 +42,7 @@ let currentNumber = Number(currentlyDisplayedText.textContent);
 let currentOperator = null;
 let leftNum = null;
 let rightNum = null;
+let equalsPressed = false;
 
 function getCurrentNumber() {
   currentNumber = Number(currentlyDisplayedText.textContent);
@@ -60,6 +61,7 @@ function loadEventListeners() {
       leftNum = null;
       rightNum = null;
       currentOperator = null;
+      equalsPressed = false;
     });
   }
 
@@ -80,15 +82,19 @@ function loadEventListeners() {
   operatorButtonEventListeners = () => {
     operatorButtons.forEach(button => {
       button.addEventListener('click', (event) => {
-        if (currentOperator == null) {
+        if (button.textContent.trim() == '=') {
+          equalsPressed = true;
+        }
+        if (currentOperator == null && leftNum == null) {
           leftNum = getCurrentNumber();
           currentOperator = button.textContent.trim();
           currentlyDisplayedText.textContent = '';
         } else if (currentOperator) {
           rightNum = getCurrentNumber();
           currentNumber = operate(currentOperator, leftNum, rightNum);
+          leftNum = currentNumber;
           currentlyDisplayedText.textContent = currentNumber;
-          leftNum = null;
+          // leftNum = null;
           rightNum = null;
           currentOperator = null;
         }

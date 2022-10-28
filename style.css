@@ -1,5 +1,5 @@
 html {
-  background-color: bisque;
+  background-color: #6CA89F;
   box-sizing: border-box;
 }
 
@@ -8,7 +8,7 @@ html {
 }
 
 .calculator-body {
-  background-color: silver;
+  background-color: #A8715B;
   width: 750px;
   height: 960px;
   margin: auto;
@@ -19,7 +19,7 @@ html {
 
 .calculator-display {
   min-width: 0;
-  background-color: white;
+  background-color: #D6FFF9;
   border: 4px black solid;
   border-radius: 8px;
   margin: auto;
@@ -36,7 +36,7 @@ html {
 /* this selector selects all divs inside of .flex-container */
 .flex-container div {
   background: peachpuff;
-  border: 4px solid brown;
+  border: 4px solid #F8B092;
   border-radius: 8px;
   height: 120px;
   flex: 1;
@@ -46,6 +46,7 @@ html {
 button {
   width: 100%;
   height: 100%;
+  background-color: #B4F4EA;
 }
 
 .buttons {
@@ -72,3 +73,10 @@ button {
   font-size: 50px;
 }
 
+#clear-button > button {
+  font-size: 50px;
+}
+
+#back-button > button {
+  font-size: 50px;
+}
