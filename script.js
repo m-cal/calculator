@@ -42,17 +42,19 @@ let currentNumber = Number(currentlyDisplayedText.textContent);
 let currentOperator = null;
 let leftNum = null;
 let rightNum = null;
+let result = null;
 let equalsPressed = false;
+let pendingOperator = false;
+let numberButtons = document.querySelectorAll('.number-button');
+let operatorButtons = document.querySelectorAll('.operator-button');
+let clearButton = document.querySelector('#clear-button');
+let backButton = document.querySelector('#back-button');
+let lastPressedButton = null;
 
 function getCurrentNumber() {
   currentNumber = Number(currentlyDisplayedText.textContent);
   return currentNumber;
 }
-
-let numberButtons = document.querySelectorAll('.number-button');
-let operatorButtons = document.querySelectorAll('.operator-button');
-let clearButton = document.querySelector('#clear-button');
-let backButton = document.querySelector('#back-button');
 
 function loadEventListeners() {
   clearButtonEventListener = () => {
@@ -74,6 +76,10 @@ function loadEventListeners() {
   numberButtonEventListeners = () => {
     numberButtons.forEach(button => {
       button.addEventListener('click', (event) => {
+        if (result && lastPressedButton == 'operator') {
+          currentlyDisplayedText.textContent = '';
+        }
+        lastPressedButton = 'number';
         currentlyDisplayedText.textContent += button.textContent.trim();
       });
     });
@@ -82,26 +88,28 @@ function loadEventListeners() {
   operatorButtonEventListeners = () => {
     operatorButtons.forEach(button => {
       button.addEventListener('click', (event) => {
-        if (button.textContent.trim() == '=') {
-          equalsPressed = true;
-        }
+        lastPressedButton = 'operator';
         if (currentOperator == null && leftNum == null) {
           leftNum = getCurrentNumber();
           currentOperator = button.textContent.trim();
           currentlyDisplayedText.textContent = '';
-        } else if (currentOperator) {
+        } else if (currentOperator && leftNum) {
           rightNum = getCurrentNumber();
-          currentNumber = operate(currentOperator, leftNum, rightNum);
-          leftNum = currentNumber;
-          currentlyDisplayedText.textContent = currentNumber;
-          // leftNum = null;
+          result = operate(currentOperator, leftNum, rightNum);
+          currentlyDisplayedText.textContent = Number(result.toFixed(2));
+          leftNum = result;
           rightNum = null;
-          currentOperator = null;
+          currentOperator = button.textContent.trim();
+          if (currentOperator == '=') {
+            currentOperator = null;
+          }
+        } else if (leftNum && !currentOperator) {
+          currentOperator = button.textContent.trim();
+          currentlyDisplayedText.textContent = '';
         }
       });
     })
   }
-
   clearButtonEventListener();
   backButtonEventListener();
   numberButtonEventListeners();
@@ -109,37 +117,3 @@ function loadEventListeners() {
 }
 
 loadEventListeners();
-
-
-
-/* 
-
-- number is entered with number buttons
-- have event listener for when operator is clicked
-   - when an op is clicked
-    - store number in a var 'leftNum'
-    - store op in a var 'currentOperator'
-    - clear #currently-displayed-text
-   - when another number is clicked:
-    - buttons should upate div
-   - wait until another operator is clicked
-    - if operator is = 
-      - call getCurrentNumber()
-      - update #currently displayed text to (operate(operator, leftNum, currentNumber));
-      - call getCurrentNumber
-    - if operator is 
-
-*/
-
-
-/* 
-
-- numbers and operators are stored as string value
-- check for when pattern changes from NumOpNum to NumOpNumOp
-  - if second op is =
-    - do final calc 
-  - if is + or - or * or /
-    - first calc NumOpNum and store that result
-    - then repeat with that result OpNum
-
-*/
