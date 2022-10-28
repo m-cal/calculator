@@ -53,6 +53,11 @@ button {
   background-color: #B4F4EA;
 }
 
+button:active {
+  transform: translateY(-4px);
+  box-shadow: 0 5px #262626;
+}
+
 .buttons {
   margin: 25px;
 }
