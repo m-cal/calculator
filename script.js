@@ -1,18 +1,7 @@
-function add(a, b) {
-  return a + b;
-}
-
-function subtract(a, b) {
-  return a - b;
-}
-
-function multiply(a, b) {
-  return a * b;
-}
-
-function divide(a, b) {
-  return a / b;
-}
+const add = (a, b) =>  a + b;
+const subtract = (a, b)  =>  a - b;
+const multiply = (a, b)  =>  a * b;
+const divide = (a, b)  =>  a / b;
 
 // Takes operator and 2 nums and calls one of the above functions on the numbers
 function operate(operator, a, b) {
@@ -43,13 +32,12 @@ let currentOperator = null;
 let leftNum = null;
 let rightNum = null;
 let result = null;
-let equalsPressed = false;
+let lastPressedButton = null;
 let pendingOperator = false;
 let numberButtons = document.querySelectorAll('.number-button');
 let operatorButtons = document.querySelectorAll('.operator-button');
 let clearButton = document.querySelector('#clear-button');
 let backButton = document.querySelector('#back-button');
-let lastPressedButton = null;
 
 function getCurrentNumber() {
   currentNumber = Number(currentlyDisplayedText.textContent);
@@ -63,7 +51,8 @@ function loadEventListeners() {
       leftNum = null;
       rightNum = null;
       currentOperator = null;
-      equalsPressed = false;
+      result = null;
+      currentNumber = null;
     });
   }
 
